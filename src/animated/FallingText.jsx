@@ -5,7 +5,6 @@ import TrueFocus from "./TrueFocus";
 const FallingText = ({
   text = "",
   highlightWords = [],
-  trigger = "auto",
   backgroundColor = "transparent",
   wireframes = false,
   gravity = 1,
@@ -39,26 +38,6 @@ const FallingText = ({
   }, [text, highlightWords]);
 
   useEffect(() => {
-    if (trigger === "auto") {
-      setEffectStarted(true);
-      return;
-    }
-    if (trigger === "scroll" && containerRef.current) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setEffectStarted(true);
-            observer.disconnect();
-          }
-        },
-        { threshold: 0.1 }
-      );
-      observer.observe(containerRef.current);
-      return () => observer.disconnect();
-    }
-  }, [trigger]);
-
-  useEffect(() => {
     if (!effectStarted) return;
 
     const { Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint } =
@@ -88,39 +67,14 @@ const FallingText = ({
       isStatic: true,
       render: { fillStyle: "transparent" },
     };
-    const floor = Bodies.rectangle(
-      width / 2,
-      height + 25,
-      width,
-      50,
-      boundaryOptions
-    );
-    const leftWall = Bodies.rectangle(
-      -25,
-      height / 2,
-      50,
-      height,
-      boundaryOptions
-    );
-    const rightWall = Bodies.rectangle(
-      width + 25,
-      height / 2,
-      50,
-      height,
-      boundaryOptions
-    );
-    const ceiling = Bodies.rectangle(
-      width / 2,
-      -25,
-      width,
-      50,
-      boundaryOptions
-    );
+    const floor = Bodies.rectangle(width / 2, height + 25, width, 50, boundaryOptions);
+    const leftWall = Bodies.rectangle(-25, height / 2, 50, height, boundaryOptions);
+    const rightWall = Bodies.rectangle(width + 25, height / 2, 50, height, boundaryOptions);
+    const ceiling = Bodies.rectangle(width / 2, -25, width, 50, boundaryOptions);
 
     const wordSpans = textRef.current.querySelectorAll("span");
     const wordBodies = [...wordSpans].map((elem) => {
       const rect = elem.getBoundingClientRect();
-
       const x = rect.left - containerRect.left + rect.width / 2;
       const y = rect.top - containerRect.top + rect.height / 2;
 
@@ -135,18 +89,13 @@ const FallingText = ({
         y: 0,
       });
       Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.05);
-
       return { elem, body };
     });
 
     wordBodies.forEach(({ elem, body }) => {
       elem.style.position = "absolute";
-      elem.style.left = `${
-        body.position.x - body.bounds.max.x + body.bounds.min.x / 2
-      }px`;
-      elem.style.top = `${
-        body.position.y - body.bounds.max.y + body.bounds.min.y / 2
-      }px`;
+      elem.style.left = `${body.position.x - body.bounds.max.x + body.bounds.min.x / 2}px`;
+      elem.style.top = `${body.position.y - body.bounds.max.y + body.bounds.min.y / 2}px`;
       elem.style.transform = "none";
     });
 
@@ -189,54 +138,32 @@ const FallingText = ({
       Render.stop(render);
       Runner.stop(runner);
       if (render.canvas && canvasContainerRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         canvasContainerRef.current.removeChild(render.canvas);
       }
       World.clear(engine.world);
       Engine.clear(engine);
     };
-  }, [
-    effectStarted,
-    gravity,
-    wireframes,
-    backgroundColor,
-    mouseConstraintStiffness,
-  ]);
+  }, [effectStarted, gravity, wireframes, backgroundColor, mouseConstraintStiffness]);
 
   const handleTrigger = () => {
-    if (!effectStarted && (trigger === "click" || trigger === "hover")) {
-      setEffectStarted(true);
-    }
+    setEffectStarted(true);
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="relative z-[1] w-full h-full cursor-pointer text-center pt-8 overflow-hidden"
-      onClick={trigger === "click" ? handleTrigger : undefined}
-      onMouseOver={trigger === "hover" ? handleTrigger : undefined}
-    >
-      <div
-        ref={textRef}
-        className="inline-block"
-        style={{
-          fontSize,
-          lineHeight: 1.4,
-        }}
-      />
-
+    <div ref={containerRef} className="relative z-[1] w-full h-full text-center pt-8 overflow-hidden">
+      <div ref={textRef} className="inline-block" style={{ fontSize, lineHeight: 1.4 }} />
       <div className="absolute top-0 left-0 z-0" ref={canvasContainerRef} />
-      <div className="p-20 md:p-40">
-      <TrueFocus
-        sentence="Click Me!"
-        manualMode={false}
-        blurAmount={5}
-        borderColor="#00BCD4"
-        animationDuration={2}
-        pauseBetweenAnimations={1}
-      />
+      <div className="p-20 md:p-40 "  onClick={handleTrigger}>
+        <TrueFocus
+          sentence="Click Me!"
+          manualMode={false}
+          blurAmount={5}
+          borderColor="#00BCD4"
+          animationDuration={2}
+          pauseBetweenAnimations={1}
+         
+        />
       </div>
-      
     </div>
   );
 };
