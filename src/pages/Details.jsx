@@ -16,7 +16,7 @@ export const Details = () => {
             { icon: <HiOutlineDocumentArrowDown color='white' />, label: 'Download Resume', onClick: () => alert('Settings!') },
           ];
   return (
-    <div className='h-screen bg-black relative'>
+    <div className='h-[100vh] bg-black relative overflow-hidden'>
     
     <p className='absolute bottom-0 bg-transparent text-white'>hooooo</p>
   

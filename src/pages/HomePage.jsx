@@ -11,14 +11,14 @@ const HomePage = () => {
   const navigate= useNavigate();
 
       const items = [
-        { icon: <GoHome color='white' />, label: 'Home', onClick: () => alert('Home!') },
+        { icon: <GoHome color='white' />, label: 'Home', onClick: () => navigate('/details') },
         { icon: <BsFolder color='white'/>, label: 'My Projects', onClick: () => alert('Archive!') },
         { icon: <LuMessageSquareDot color='white'/>, label: 'Reach Me', onClick: () => navigate('/contact') },
         { icon: <HiOutlineDocumentArrowDown color='white' />, label: 'Download Resume', onClick: () => alert('Settings!') },
       ];
 
   return (
-    <div className='h-screen bg-black'>
+    <div className='h-screen bg-black overflow-hidden'>
   
 
 <div style={{ width: '100%', height: '600px', position: 'relative' }}>

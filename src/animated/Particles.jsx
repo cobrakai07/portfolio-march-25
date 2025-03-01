@@ -244,11 +244,11 @@ const Particles = ({
           hue={0}
           forceHoverState={false}
         />
-        <div className='text-white flex gap-3 justify-center text-3xl font-stretch-semi-condensed flex-wrap -mt-24 md:-mt-7'>
+        <div className='text-white flex gap-3 justify-center text-3xl font-bold flex-wrap -mt-24 md:-mt-7'>
             <div className='flex justify-center items-center'>I am a</div>
             <RotatingText
           texts={['React ⚛️', 'React Native ⚛️', 'Java ☕︎', 'Cool 😎','Full-Stack 🧑‍💻']}
-          mainClassName="px-2 sm:px-2 md:px-3 bg-blue-400 text-white font-semibold overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+          mainClassName="px-2 sm:px-2 md:px-3 bg-blue-400 text-black font-bold overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
           staggerFrom={"last"}
           initial={{ y: "100%" }}
           animate={{ y: 0 }}

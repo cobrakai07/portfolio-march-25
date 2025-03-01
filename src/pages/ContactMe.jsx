@@ -21,7 +21,7 @@ const ContactMe = () => {
       ];
 
   return (
-    <div className='h-screen bg-black'>
+    <div className='h-screen bg-black overflow-hidden'>
   
 
 <div style={{ width: '100%', height: '600px', position: 'relative' }}>
