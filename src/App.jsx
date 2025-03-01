@@ -1,18 +1,19 @@
-import React from "react";
-import RotatingText from "./animated/RotatingText";
-import FallingText from "./animated/FallingText";
-import { FaFingerprint } from "react-icons/fa";
-import Magnet from "./animated/Magnet";
-import MetaBalls from "./animated/MetaBalls";
-import Aurora from "./animated/Aurora";
-import StartPage from "./pages/StartPage";
-import HomePage from "./pages/HomePage";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-const App = () => {
+import HomePage from './pages/HomePage';
+import StartPage from './pages/StartPage';
+import ContactMe from './pages/ContactMe';
+
+function App() {
   return (
-    // <StartPage/>
-    <HomePage/>
+    <Router>
+      <Routes>
+        <Route path="/profile" element={<HomePage />} />
+        <Route path="/contact" element={<ContactMe />} />
+        <Route path="/" element={<StartPage />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;

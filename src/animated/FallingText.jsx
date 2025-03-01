@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import Matter from "matter-js";
 import TrueFocus from "./TrueFocus";
+import { useNavigate } from 'react-router-dom';
 
 const FallingText = ({
   text = "",
@@ -14,7 +15,7 @@ const FallingText = ({
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const canvasContainerRef = useRef(null);
-
+  const navigate = useNavigate();
   const [effectStarted, setEffectStarted] = useState(false);
 
   useEffect(() => {
@@ -147,6 +148,8 @@ const FallingText = ({
 
   const handleTrigger = () => {
     setEffectStarted(true);
+    setTimeout(()=>navigate('/profile'),1000);
+
   };
 
   return (

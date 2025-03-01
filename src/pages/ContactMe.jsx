@@ -1,19 +1,22 @@
 import React from 'react'
 import Particles from '../animated/Particles'
+import RotatingText from '../animated/RotatingText'
+import ScrollVelocity from '../animated/ScrollVelocity'
+import FlowingMenu from '../animated/FlowingMenu'
 import Dock from '../animated/Dock'
 import { GoHome } from "react-icons/go";
 import { BsFolder } from "react-icons/bs";
 import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { LuMessageSquareDot } from "react-icons/lu";
-import { useNavigate } from 'react-router-dom';
+import ParticlesContactPage from '../animated/ParticlesContactPage'
 
-const HomePage = () => {
-  const navigate= useNavigate();
+const ContactMe = () => {
+ 
 
       const items = [
         { icon: <GoHome color='white' />, label: 'Home', onClick: () => alert('Home!') },
         { icon: <BsFolder color='white'/>, label: 'My Projects', onClick: () => alert('Archive!') },
-        { icon: <LuMessageSquareDot color='white'/>, label: 'Reach Me', onClick: () => navigate('/contact') },
+        { icon: <LuMessageSquareDot color='white'/>, label: 'Reach Me', onClick: () => alert('Profile!') },
         { icon: <HiOutlineDocumentArrowDown color='white' />, label: 'Download Resume', onClick: () => alert('Settings!') },
       ];
 
@@ -22,7 +25,7 @@ const HomePage = () => {
   
 
 <div style={{ width: '100%', height: '600px', position: 'relative' }}>
-  <Particles
+  <ParticlesContactPage
     particleColors={['#ffffff', '#ffffff']}
     particleCount={500}
     particleSpread={10}
@@ -47,4 +50,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default ContactMe

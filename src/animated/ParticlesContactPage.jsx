@@ -1,17 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
-import Orb from "./Orb";
-import RotatingText from "./RotatingText";
+import Stepper from "./Stepper";
+import Step from "./Stepper";
 
 const defaultColors = ["#ffffff", "#ffffff", "#ffffff"];
 
 const hexToRgb = (hex) => {
   hex = hex.replace(/^#/, "");
   if (hex.length === 3) {
-    hex = hex
-      .split("")
-      .map((c) => c + c)
-      .join("");
+    hex = hex.split("").map((c) => c + c).join("");
   }
   const int = parseInt(hex, 16);
   const r = ((int >> 16) & 255) / 255;
@@ -79,7 +76,7 @@ const fragment = /* glsl */ `
   }
 `;
 
-const Particles = ({
+const ParticlesContactPage = ({
   particleCount = 200,
   particleSpread = 10,
   speed = 0.1,
@@ -95,7 +92,9 @@ const Particles = ({
 }) => {
   const containerRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
-
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -132,10 +131,7 @@ const Particles = ({
     const positions = new Float32Array(count * 3);
     const randoms = new Float32Array(count * 4);
     const colors = new Float32Array(count * 3);
-    const palette =
-      particleColors && particleColors.length > 0
-        ? particleColors
-        : defaultColors;
+    const palette = particleColors && particleColors.length > 0 ? particleColors : defaultColors;
 
     for (let i = 0; i < count; i++) {
       let x, y, z, len;
@@ -147,10 +143,7 @@ const Particles = ({
       } while (len > 1 || len === 0);
       const r = Math.cbrt(Math.random());
       positions.set([x * r, y * r, z * r], i * 3);
-      randoms.set(
-        [Math.random(), Math.random(), Math.random(), Math.random()],
-        i * 4
-      );
+      randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
       const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
       colors.set(col, i * 3);
     }
@@ -233,38 +226,43 @@ const Particles = ({
   ]);
 
   return (
-    <div ref={containerRef} className={`relative w-full h-full ${className}`}>
-      
-      <div
+    <div
+      ref={containerRef}
+      className={`relative w-full h-full ${className}`}
+    >
+        
+        <div
         style={{ width: "100%", height: "600px", position: "absolute", top: 0 }}
       >
-        <Orb
-          hoverIntensity={0.1}
-          rotateOnHover={true}
-          hue={0}
-          forceHoverState={false}
-        />
-        <div className='text-white flex gap-3 justify-center text-3xl font-stretch-semi-condensed flex-wrap -mt-24 md:-mt-7'>
-            <div className='flex justify-center items-center'>I am a</div>
-            <RotatingText
-          texts={['React ⚛️', 'React Native ⚛️', 'Java ☕︎', 'Cool 😎','Full-Stack 🧑‍💻']}
-          mainClassName="px-2 sm:px-2 md:px-3 bg-blue-400 text-white font-semibold overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
-          staggerFrom={"last"}
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "-120%" }}
-          staggerDuration={0.025}
-          splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-          transition={{ type: "spring", damping: 30, stiffness: 400 }}
-          rotationInterval={2000}
-        />
-            <div className='flex justify-center items-center'>Developer</div>
+  <Stepper
+    initialStep={1}
+    onStepChange={(step) => {
+      console.log(step);
+    }}
+    onFinalStepCompleted={() => console.log("All steps completed!")}
+    backButtonText="Previous"
+    nextButtonText="Next"
+  >
+    
+    <Step>
+        <div className="flex flex-col justify-center items-center">
+        <h2 className="text-white">Please Enter your Email ID</h2>
+        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email id?" className="text-white"/>
         </div>
-
-        
-      </div>
+      
+    </Step>
+    <Step>
+        <div className="flex flex-col justify-center items-center">
+        <h2 className="text-white">Enter Your Message</h2>
+        <input value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Enter your message" className="text-white"/>
+        </div>
+      
+    </Step>
+   
+  </Stepper>
+  </div>
     </div>
   );
 };
 
-export default Particles;
+export default ParticlesContactPage;

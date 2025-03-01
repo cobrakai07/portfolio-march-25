@@ -1,8 +1,10 @@
+
 import React from 'react'
 import MetaBalls from '../animated/MetaBalls'
 import FallingText from '../animated/FallingText'
 
 const StartPage = () => {
+ 
   return (
     <div className="h-screen  flex flex-col p-4 bg-black">
       <FallingText
