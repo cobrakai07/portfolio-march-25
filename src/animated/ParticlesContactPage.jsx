@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
-import Stepper from "./Stepper";
-import Step from "./Stepper";
+import SpotlightCard from "./SpotLightCard";
+import EmailForm from "./MailForm";
 
 const defaultColors = ["#ffffff", "#ffffff", "#ffffff"];
 
@@ -232,34 +232,14 @@ const ParticlesContactPage = ({
     >
         
         <div
+        className="flex justify-center items-center"
         style={{ width: "100%", height: "600px", position: "absolute", top: 0 }}
       >
-  <Stepper
-    initialStep={1}
-    onStepChange={(step) => {
-      console.log(step);
-    }}
-    onFinalStepCompleted={() => console.log("All steps completed!")}
-    backButtonText="Previous"
-    nextButtonText="Next"
-  >
-    
-    <Step>
-        <div className="flex flex-col justify-center items-center">
-        <h2 className="text-white">Please Enter your Email ID</h2>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email id?" className="text-white"/>
-        </div>
-      
-    </Step>
-    <Step>
-        <div className="flex flex-col justify-center items-center">
-        <h2 className="text-white">Enter Your Message</h2>
-        <input value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Enter your message" className="text-white"/>
-        </div>
-      
-    </Step>
-   
-  </Stepper>
+  {/* import SpotlightCard from './SpotlightCard'; */}
+  
+  <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(0, 229, 255, 0.2)">
+    <EmailForm/>
+  </SpotlightCard>
   </div>
     </div>
   );
