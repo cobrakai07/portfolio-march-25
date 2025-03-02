@@ -5,16 +5,17 @@ import { GoHome } from "react-icons/go";
 import { BsFolder } from "react-icons/bs";
 import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { LuMessageSquareDot } from "react-icons/lu";
+import { BsPersonWorkspace } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate= useNavigate();
 
       const items = [
-        { icon: <GoHome color='white' />, label: 'Home', onClick: () => navigate('/details') },
+        { icon: <BsPersonWorkspace color='white'/>, label: 'Education and Work experince', onClick: () => navigate('/details') },
         { icon: <BsFolder color='white'/>, label: 'My Projects', onClick: () => alert('Archive!') },
         { icon: <LuMessageSquareDot color='white'/>, label: 'Reach Me', onClick: () => navigate('/contact') },
-        { icon: <HiOutlineDocumentArrowDown color='white' />, label: 'Download Resume', onClick: () => alert('Settings!') },
+        { icon: <HiOutlineDocumentArrowDown color='white' />, label: 'Download Resume', onClick: () => navigate('/skills')  },
       ];
 
   return (

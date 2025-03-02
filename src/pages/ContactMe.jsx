@@ -9,15 +9,16 @@ import { BsFolder } from "react-icons/bs";
 import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { LuMessageSquareDot } from "react-icons/lu";
 import ParticlesContactPage from '../animated/ParticlesContactPage'
+import { useNavigate } from 'react-router-dom'
 
 const ContactMe = () => {
  
-
+      const navigate=useNavigate();
       const items = [
-        { icon: <GoHome color='white' />, label: 'Home', onClick: () => alert('Home!') },
+        { icon: <GoHome color='white' />, label: 'Home', onClick: () => navigate('/profile') },
         { icon: <BsFolder color='white'/>, label: 'My Projects', onClick: () => alert('Archive!') },
         { icon: <LuMessageSquareDot color='white'/>, label: 'Reach Me', onClick: () => alert('Profile!') },
-        { icon: <HiOutlineDocumentArrowDown color='white' />, label: 'Download Resume', onClick: () => alert('Settings!') },
+        { icon: <HiOutlineDocumentArrowDown color='white' />, label: 'Download Resume', onClick: () =>  navigate('/skills') },
       ];
 
   return (

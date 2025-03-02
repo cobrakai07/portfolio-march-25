@@ -92,7 +92,7 @@ export const Details = () => {
     {
       icon: <HiOutlineDocumentArrowDown color="white" />,
       label: "Download Resume",
-      onClick: () => alert("Settings!"),
+      onClick: () =>  navigate('/skills'),
     },
   ];
   return (
@@ -112,6 +112,8 @@ export const Details = () => {
           pauseOnHover={true}
         />
       </div>
+
+      
 
       <Squares
         speed={0.3}
