@@ -9,12 +9,12 @@ function Projects() {
         { link: '#', text: 'Sequoia', image: 'https://picsum.photos/600/400?random=4' }
       ];
   return (
-    <div>
+    <div className='bg-black'>
         {/* import FlowingMenu from './FlowingMenu' */}
 
 
 
-<div style={{ height: '600px', position: 'relative' }}>
+<div style={{ height: '100vh', width:'', position: 'relative' }}>
   <FlowingMenu items={demoItems} />
 </div>
     </div>
